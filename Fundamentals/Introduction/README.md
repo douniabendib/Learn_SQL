@@ -29,3 +29,16 @@ To do this we'll write:
 ```sql
 SELECT column1, column2, column3 FROM table_name;
 ```
+
+## Database concepts
+
+
+In databases, rows are called records, and columns are called fields.
+
+Tables have a fixed number of fields (columns) but can contain many records (rows). Each field has a unique name, usually in lowercase and singular form. Tables typically include an id field, which serves as a unique identifier for each record, helping to distinguish between similar entries.
+
+In SQL, we can use the asterisk * symbol as a shortcut to select all columns from a table. Instead of listing each column name, simply write:
+```sql
+SELECT * FROM table_name
+```
+This query fetches every column in the specified table.
