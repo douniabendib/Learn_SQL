@@ -1,6 +1,5 @@
 # Introduction
 
-
 SQL (Structured Query Language) is a standard language for managing and manipulating relational databases. It allows users to store, retrieve, and analyze data efficiently, making it essential for businesses and organizations worldwide.
 
 ## What is a database
@@ -42,3 +41,21 @@ In SQL, we can use the asterisk * symbol as a shortcut to select all columns fro
 SELECT * FROM table_name
 ```
 This query fetches every column in the specified table.
+
+## Unique values
+Let's assume we have the following table:
+
+sales
+|   #  | Country | City      | Amount |
+|------|---------|-----------|--------|
+|  1   | Poland  | Warsaw    |  13    |
+|  2   | Germany | Berlin    |  24    |
+|  3   | Poland  | Katowice  |  51    |
+And we would like to know all of the countries where the product was sold.
+
+If we use the normal query we know: SELECT country from sales it will return Poland, Germany, Poland. This is not what we are looking for because Poland is repeated twice.
+
+To solve it we can use the DISTINCT keyword:
+```sql
+SELECT DISTINCT country FROM sales
+```
