@@ -29,3 +29,34 @@ To fetch all of the records with amount smaller or equal to 20 we will write:
 SELECT * FROM sales
 WHERE amount <= 20
 ```
+# The AND Keyword
+
+The **AND** keyword means that both conditions must be true; if either one of them is not, then the condition will not be met.
+
+## Example People Table
+
+| Name   | Age | Gender |
+|--------|-----|--------|
+| Joas   | 13  | Male   |
+| Holwa  | 17  | Male   |
+| Nohlas | 24  | Female |
+| Polar  | 23  | Male   |
+| Loopa  | 18  | Female |
+
+## SQL Query
+
+The following query:
+
+```sql
+SELECT * 
+FROM people
+WHERE gender = "female" AND age < 20
+```
+means that we are looking for all records where the gender is "female" and the age is less than 20.
+
+## Result
+
+| Name  | Age | Gender |
+|-------|-----|--------|
+| Loopa | 18  | Female |
+
