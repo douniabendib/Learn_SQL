@@ -130,3 +130,15 @@ WHERE age > 20
 WHERE NOT age <= 20
 ```
 
+# Multiple Conditions Combined
+
+
+Creating a query with only one condition is not sufficient. Sometimes we would like to check something more complicated. For that SQL (and many other programming languages) have the AND, OR, and NOT keywords to increase our ability to fetch the right result we need.
+
+The AND and OR keywords are used like this:
+```sql
+SELECT col1, col2 
+FROM table1
+WHERE condition1 AND condition2 OR condition3 ...
+```
+We can stack as many conditions as we want together.
