@@ -93,3 +93,40 @@ This will be the result:
 | Holwa  | 17  | Male   |
 | Nohlas | 24  | Female |
 | Loopa  | 18  | Female |
+
+# The NOT Keyword
+
+The **NOT** keyword means that we don't want the condition to be met.
+
+## Example People Table
+
+| Name   | Age | Gender |
+|--------|-----|--------|
+| Joas   | 13  | Male   |
+| Holwa  | 17  | Male   |
+| Nohlas | 24  | Female |
+| Polar  | 23  | Male   |
+| Loopa  | 18  | Female |
+
+## SQL Query
+
+```sql
+SELECT * 
+FROM people
+WHERE NOT gender = 'male'
+```
+## Result
+
+| Name   | Age | Gender |
+|--------|-----|--------|
+| Nohlas | 24  | Female |
+| Loopa  | 18  | Female |
+
+The NOT keyword basically flips the condition. For example the following queries are the same:
+```sql
+WHERE age > 20
+```
+```sql
+WHERE NOT age <= 20
+```
+
