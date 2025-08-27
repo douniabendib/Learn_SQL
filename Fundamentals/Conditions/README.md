@@ -1,4 +1,4 @@
-#Conditions Basics
+# Conditions Basics
 
 
 Sometimes we would like to fetch records that meet a certain condition.
@@ -60,3 +60,36 @@ means that we are looking for all records where the gender is "female" and the a
 |-------|-----|--------|
 | Loopa | 18  | Female |
 
+# The OR Keyword
+
+The **OR** keyword means that we want one of the conditions to be true.
+
+## Example People Table
+
+| Name   | Age | Gender |
+|--------|-----|--------|
+| Joas   | 13  | Male   |
+| Holwa  | 17  | Male   |
+| Nohlas | 24  | Female |
+| Polar  | 23  | Male   |
+| Loopa  | 18  | Female |
+
+## SQL Query
+
+```sql
+SELECT * 
+FROM people
+WHERE gender = 'female' OR age < 20
+```
+This query means that we are looking for all records where either the gender is female or the age is less than 20.
+
+This will be the result:
+
+## Result
+
+| Name   | Age | Gender |
+|--------|-----|--------|
+| Joas   | 13  | Male   |
+| Holwa  | 17  | Male   |
+| Nohlas | 24  | Female |
+| Loopa  | 18  | Female |
