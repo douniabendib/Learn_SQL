@@ -158,3 +158,22 @@ WHERE (age < 30 OR gender = 'female') AND age > 20
 The first query returns all people under 30 (any gender) plus all females over 20.
 
 The second query returns only people over 20 who are either under 30 or female.
+
+# Booleans
+
+
+Conditions are booleans. Boolean is a data type with two possible values: TRUE or FALSE.
+
+For example
+
+10 > 100 - FALSE
+10 > 5 - TRUE
+10 > 5 AND 100 < 5 - FALSE
+Boolean columns have only two values - either TRUE or FALSE. Internally, TRUE is represented as 1 and FALSE is represented as 0.
+
+We can replace columns such as employed or unemployed as 1 or 0 to make it easier to filter data. To filter data using booleans we will use the IS TRUE or IS NOT TRUE keywords.
+```sql
+SELECT *
+FROM table1
+WHERE col1 IS NOT FALSE AND col2 IS TRUE
+```
