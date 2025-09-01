@@ -82,4 +82,17 @@ The result:
 | 5         | 25  | 4.93      |
 | 7         | 23  | 6.58      |
 
+# Limit number of records
 
+
+Let's assume we fetched a lot of data. Sometimes we only need the top 5 or the top 10 records.
+
+To limit the number of records we can use the LIMIT keyword
+
+For example
+```sql
+SELECT *
+FROM table1
+LIMIT 10
+```
+This will return the top 10 records.
