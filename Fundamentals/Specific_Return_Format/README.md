@@ -44,4 +44,42 @@ To specify how to sort that data we can add DESC or ASC keywords after the name 
 ```sql
 ORDER BY avg_speed ASC
 ```
+# Sort Results Part 2
+
+
+When using ORDER BY in SQL, you can sort data by multiple columns.
+
+For example consider the following competition table:
+
+| runner_id | age | avg_speed |
+|-----------|-----|-----------|
+| 1         | 47  | 3.65      |
+| 2         | 62  | 3.07      |
+| 3         | 57  | 6.82      |
+| 4         | 56  | 4.34      |
+| 5         | 25  | 4.93      |
+| 6         | 40  | 3.94      |
+| 7         | 23  | 6.58      |
+| 8         | 40  | 3.43      |
+
+```sql
+SELECT *
+FROM competition
+WHERE age < 50
+ORDER BY age DESC, avg_speed DESC
+```
+This query will:
+1. First sort all records by age in descending order (highest to lowest)
+2. If two or more records have the same age, it will then sort those specific records by avg_speed in descending order
+
+The result:
+
+| runner_id | age | avg_speed |
+|-----------|-----|-----------|
+| 1         | 47  | 3.65      |
+| 8         | 40  | 3.43      |
+| 6         | 40  | 3.94      |
+| 5         | 25  | 4.93      |
+| 7         | 23  | 6.58      |
+
 
