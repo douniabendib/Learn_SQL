@@ -11,3 +11,37 @@ SELECT *
 FROM table1
 WHERE col1 IS NULL
 ```
+# Sort Results Part 1
+
+
+When querying a database, organizing your results in a meaningful order can make data analysis much more efficient. To sort the result we use the ORDER BY keyword and after that, we should specify by which field we are ordering by. By default, it sorts by ascending order. For example consider the following competition table:
+
+| runner_id | age | avg_speed |
+|-----------|-----|-----------|
+| 1         | 47  | 3.65      |
+| 2         | 62  | 3.07      |
+| 3         | 57  | 6.82      |
+| 4         | 56  | 4.34      |
+| 5         | 25  | 4.93      |
+| 6         | 40  | 3.94      |
+| 7         | 23  | 6.58      |
+| 8         | 40  | 3.43      |
+```sql
+SELECT *
+FROM competition
+WHERE age > 50
+ORDER BY avg_speed
+```
+This is the result
+
+| runner_id | age | avg_speed |
+|-----------|-----|-----------|
+| 2         | 62  | 3.07      |
+| 4         | 56  | 4.34      |
+| 3         | 57  | 6.82      |
+
+To specify how to sort that data we can add DESC or ASC keywords after the name of the column.
+```sql
+ORDER BY avg_speed ASC
+```
+
