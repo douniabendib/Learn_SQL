@@ -142,3 +142,19 @@ FROM table1
 WHERE condition1 AND condition2 OR condition3 ...
 ```
 We can stack as many conditions as we want together.
+
+#Parenthesis
+
+
+It is important to use parenthesis when combining different conditions. 
+
+For example the following queries look similar but they are not the same:
+```sql
+WHERE age < 30 OR gender = 'female' AND age > 20
+```
+```sql
+WHERE (age < 30 OR gender = 'female') AND age > 20
+```
+The first query returns all people under 30 (any gender) plus all females over 20.
+
+The second query returns only people over 20 who are either under 30 or female.
