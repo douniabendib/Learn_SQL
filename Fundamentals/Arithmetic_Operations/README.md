@@ -62,3 +62,47 @@ For example group items into sets of 5:
 ```sql
 SELECT item_number % 5 as group_number FROM inventory;
 ```
+
+# The ROUND() Function
+
+
+The ROUND() function is used to round a numeric value to a specified number of decimal places. To use the function follow this syntax:
+```sql
+ROUND(number, decimal_places)
+```
+* number: The number you want to round
+* decimal_places: (Optional) The number of decimal places to round to
+- If omitted, rounds to the nearest whole number
+- If positive, rounds to that many decimal places
+- If negative, rounds to the left of the decimal point
+For example, 
+
+Basic rounding to whole numbers:
+```sql
+SELECT ROUND(3.7);
+-- Returns 4
+
+SELECT ROUND(3.3);
+-- Returns 3
+
+SELECT ROUND(3.5);  
+-- Returns 4 (rounds up from .5)
+```
+Rounding to specific decimal places:
+```sql
+SELECT ROUND(3.14159, 2);
+-- Returns 3.14
+
+SELECT ROUND(3.14159, 1);
+-- Returns 3.1
+
+SELECT ROUND(3.14159, 0);
+-- Returns 3
+```
+Practical example with a table:
+```sql
+SELECT 
+    product_name,
+    ROUND(price, 2) as rounded_price
+FROM products;
+```
