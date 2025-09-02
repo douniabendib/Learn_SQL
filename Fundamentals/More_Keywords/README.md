@@ -39,7 +39,8 @@ Two main wildcards are used:
 
 - % - means any number of characters
 -  _ - means exactly one character
-For example:
+
+* For example:
 
 - %a - means any string that ends with a
 - a% - means any string that starts with a
