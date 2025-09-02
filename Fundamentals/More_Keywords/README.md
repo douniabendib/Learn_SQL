@@ -53,3 +53,14 @@ SELECT col1, col2, ...
 FROM table1
 WHERE col1 LIKE '%a__'
 ```
+
+# The AS keyword
+
+
+Clear and descriptive column names are essential for presenting data in a meaningful way. If you show a table with bad column names, it will be hard for your audience to understand what you are talking about.
+
+To change column names you may use the AS keyword
+```sql
+SELECT col1 AS firstColumn, col2 AS secondColumn, ...
+FROM table1
+```
