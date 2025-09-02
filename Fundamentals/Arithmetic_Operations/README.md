@@ -30,3 +30,35 @@ You can also use parentheses to control the order of operations:
 SELECT (base_salary + bonus) * (1 - tax_rate) as net_pay
 FROM payroll;
 ```
+
+# The Modulo Operation
+
+
+The modulo operator % tells you what's left over after dividing one number by another.
+```sql
+dividend % divisor
+```
+dividend: The number being divided.
+divisor: The number that divides the dividend.
+For example
+```sql
+10 % 3
+```
+Here, 10 is divided by 3. 3 goes into 10 three times, with a remainder of 1. So, result will be 1.
+
+Usually modulo is used for checking if a number is even or odd:
+
+If a number is even, dividing it by 2 will leave a remainder of 0.
+If a number is odd, dividing it by 2 will leave a remainder of 1.
+For example find even-numbered rows:
+```sql
+SELECT * FROM table WHERE id % 2 = 0;
+```
+Or for cycling through values:
+
+number % 12 (returns 0-11)
+number % 8 (return 0-7)
+For example group items into sets of 5:
+```sql
+SELECT item_number % 5 as group_number FROM inventory;
+```
