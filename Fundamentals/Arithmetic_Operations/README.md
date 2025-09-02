@@ -16,3 +16,17 @@ SELECT price + 10 as increased_price,
        price / 2 as half_price
 FROM products;
 ```
+
+# Mathematical Columns
+
+
+You can combine multiple columns and numbers in complex expressions. For example:
+```sql
+SELECT (price * quantity) + shipping_cost as final_price
+FROM orders;
+```
+You can also use parentheses to control the order of operations:
+```sql
+SELECT (base_salary + bonus) * (1 - tax_rate) as net_pay
+FROM payroll;
+```
