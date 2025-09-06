@@ -43,3 +43,36 @@ Common use cases for nested aggregates:
 1. Comparing each value to the average
 2. Calculating percentage of total
 3. Finding differences from maximum or minimum values
+
+# Grouping Part 1
+
+
+We have calculated data for the entire field thus far, and now we will introduce the ability to calculate data for specific groups.
+
+workers
+| id | area | age |
+|----|------|-----|
+|  1 |  A   | 35  |
+|  2 |  A   | 37  |
+|  3 |  B   | 29  |
+|  4 |  B   | 39  |
+If we write 
+```sql
+SELECT AVG(age) as avg_age FROM workers
+```
+We will receive only the average age of all the workers together. 
+
+What if we want to calculate the average age for each area?
+
+For that, we can use the GROUP BY keywords
+```sql
+SELECT area, AVG(age) as avg_age FROM workers
+GROUP BY area
+```
+The result:
+| area | avg_age |
+|------|---------|
+|  A   |   36    |
+|  B   |   34    |
+Now we know that the average age in Area A is 36 and the average age in Area B is 34.
+
