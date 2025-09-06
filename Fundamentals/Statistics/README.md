@@ -108,3 +108,35 @@ GROUP BY category
 HAVING AVG(price) > 40
 ```
 This will first go record by record and filter all the records for which the price is greater than 25, and only after that will it run the GROUP BY clause and filter every category for which the average price is greater than 40.
+
+# Subqueries Part 1
+
+
+Subqueries allow us to combine multiple queries into one. For example consider the following employees table:
+
+| id | salary |
+|----|--------|
+| 1  |   48   |
+| 2  |   34   |
+| 3  |   46   |
+| 4  |   13   |
+| 5  |   28   |
+
+We need a subquery because we can't use WHERE salary > AVG(salary) directly since aggregate functions like AVG() can't be used in a WHERE clause - they can only be used after the data has been grouped.
+```sql
+SELECT id, salary
+FROM employees
+WHERE salary > (
+    SELECT AVG(salary)
+    FROM employees
+);
+```
+A subquery helps us find employees who earn more than the company's average salary by first calculating the average (inner query) and then using that value to filter employees (outer query).
+
+Since the average is: (48 + 34 + 46 + 13 + 28) / 5 = 33.8, this is the result of the query:
+
+| id | salary |
+|----|--------|
+|  1 |   48   |
+|  2 |   34   |
+|  3 |   46   |
