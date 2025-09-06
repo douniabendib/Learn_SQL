@@ -76,3 +76,35 @@ The result:
 |  B   |   34    |
 Now we know that the average age in Area A is 36 and the average age in Area B is 34.
 
+# Grouping Part 2
+
+
+The WHERE keyword runs a condition on each record separately. For example:
+```sql
+SELECT * FROM table1
+WHERE col1 > col2
+```
+The col1 > col2 will run on every record and check if it is met.
+
+But what if we want to filter aggregate results? For example:
+```sql
+SELECT category, AVG(price) FROM table1
+WHERE AVG(price) > 40
+GROUP BY category
+```
+This will not work because WHERE cannot check any aggregations. For that, we have the HAVING keyword. It filters data by the aggregate condition.
+```sql
+SELECT category, AVG(price) FROM table1
+GROUP BY category
+HAVING AVG(price) > 40
+```
+This will filter all the categories for which the average price is greater than 40.
+
+If we want to combine HAVING and WHERE clause we will write:
+```sql
+SELECT category, AVG(price) FROM table1
+WHERE price > 25
+GROUP BY category
+HAVING AVG(price) > 40
+```
+This will first go record by record and filter all the records for which the price is greater than 25, and only after that will it run the GROUP BY clause and filter every category for which the average price is greater than 40.
