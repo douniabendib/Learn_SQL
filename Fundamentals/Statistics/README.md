@@ -140,3 +140,47 @@ Since the average is: (48 + 34 + 46 + 13 + 28) / 5 = 33.8, this is the result of
 |  1 |   48   |
 |  2 |   34   |
 |  3 |   46   |
+
+# Subqueries Part 2
+
+
+There are three main types of subqueries:
+
+* Scalar Subqueries - Returns a single value (one row, one column)
+* Row Subqueries - Returns a single row with multiple columns
+* Table Subqueries - Returns multiple rows and columns
+For example here are some use cases for each subquery type:
+
+Scalar Subquery - Find employees who earn more than the average salary:
+```sql
+SELECT name, salary
+FROM employees
+WHERE salary > (
+    SELECT AVG(salary)
+    FROM employees
+);
+```
+Row Subquery - Find employee(s) with the same department and salary as Alice
+```sql
+SELECT name
+FROM employees
+WHERE (department, salary) = (
+    SELECT department, salary
+    FROM employees
+    WHERE name = 'Alice'
+);
+```
+Table Subqueries - Show departments and their employee count
+```sql
+SELECT department, count
+FROM (
+    SELECT department, COUNT(*) as count
+    FROM employees
+    GROUP BY department
+) as dept_counts;
+```
+Notice the use cases:
+
+- Scalar - Simple comparisons (>, <, =)
+- When you need to match multiple columns
+- When you need to query from a result set
