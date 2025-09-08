@@ -47,3 +47,13 @@ JOIN lecturers ON courses.lecturer_id = lecturers.lecturer_id
 Instead of WHERE we use JOIN table ON condition
 
 This type of join is also called an inner join.
+
+# Basic Join Part 2
+
+
+Joins can also be used on tables that we create. To combine nested tables with joins we need to add AS to identify the nested query with a name. For example:
+```sql
+SELECT table1.col1, table2.col2, ...
+FROM table1, (SELECT * FROM table) AS table2
+WHERE table1.id = table2.id
+```
