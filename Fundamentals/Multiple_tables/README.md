@@ -140,3 +140,31 @@ Result:
 | Leonie |
 | George |
 | Lena   |
+
+# Simplify queries, WITH keyword
+
+
+Queries can get too messy by adding many inner queries. For example here is a query that has many sub-queries:
+```sql
+SELECT * FROM table1
+WHERE col2 IN (
+    SELECT col1 FROM table2
+    WHERE col3 + col2 > 3 AND col5 LIKE '%test%' AND col6 IN (
+        SELECT col5 FROM table3
+        WHERE col1 AND col3 OR col2
+    )
+)
+```
+To make it easier we can use the WITH query_name AS (...) keyword. It allows us to save a query with a name and use it wherever we want:
+```sql
+WITH query1 AS (
+    SELECT col5 FROM table3
+    WHERE col1 AND col3 OR col2
+), query2 AS (
+    SELECT col1 FROM table2
+    WHERE col3 + col2 > 3 AND col5 LIKE '%test%' AND col6 IN query1
+)
+SELECT * FROM table1
+WHERE col2 IN query2 AND col4 IN query1
+```
+Here we reused query1 in query2 and in the main query.
