@@ -57,3 +57,31 @@ SELECT table1.col1, table2.col2, ...
 FROM table1, (SELECT * FROM table) AS table2
 WHERE table1.id = table2.id
 ```
+# Self join
+
+
+Self-joins are different types of joins. As of now, we talked about multiple table joins, but self-joins are joined to the same table. A classic example would be a table of employees.
+
+| employee_id | employee_name | manager_id |
+|-------------|---------------|------------|
+| 1           | Minke         | 2          |
+| 2           | Temur         | 3          |
+| 3           | Tatjana       | 4          |
+| 4           | Marinela      |            |
+Every employee has a manager except the highest manager, and every manager is also an employee.
+
+The problem: For each employee we want to know the manager's name.
+```sql
+SELECT e2.employee_id, e2.employee_name, e1.employee_name as manager_name
+FROM employees as e1
+JOIN employees as e2 ON e1.employee_id = e2.manager_id
+```
+We join between the same table except one time we call it e1 and the second time it is e2. The join is between the fields employee_id and manager_id.
+
+The result:
+| employee_id | employee_name | manager_name |
+|-------------|---------------|---------------|
+| 1           | Minke         | Temur         |
+| 2           | Temur         | Tatjana       |
+| 3           | Tatjana       | Marinela      |
+
