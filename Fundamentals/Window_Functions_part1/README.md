@@ -81,3 +81,30 @@ We can even specify multiple columns inside the PARTITION BY:
 ```sql
 ROW_NUMBER() OVER (PARTITION BY type, hue ORDER BY id)
 ```
+# PARTITION & ORDER
+
+
+We can also combine PARTITION BY with ORDER BY. For example consider the following table1:
+| id  | type |
+|-----|------|
+| 132 | t1   |
+| 52  | t2   |
+| 92  | t1   |
+| 154 | t3   |
+| 198 | t1   |
+```sql
+SELECT id, type, ROW_NUMBER() OVER (PARTITION BY type ORDER BY id) as row_num
+FROM table1
+```
+This will number the rows in ascending order by the id of each type:
+
+| id  | type | row_num |
+|-----|------|---------|
+| 132 | t1   | 2       |
+| 52  | t2   | 1       |
+| 92  | t1   | 1       |
+| 154 | t3   | 1       |
+| 198 | t1   | 3       |
+
+Now id 132 has row_num 2 because it is larger than 92 and smaller than 198 (of all the t1 type rows).
+
