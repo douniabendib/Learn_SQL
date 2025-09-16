@@ -108,3 +108,21 @@ This will number the rows in ascending order by the id of each type:
 
 Now id 132 has row_num 2 because it is larger than 92 and smaller than 198 (of all the t1 type rows).
 
+# LEAD & LAG Functions
+ 
+The LAG and LEAD functions allow access to values from previous or next rows:
+
+LAG function - gets value from previous row:
+```sql
+LAG(column_name, n) OVER (ORDER BY column)
+```
+LEAD function - gets value from next row:
+```sql
+LEAD(column_name, n) OVER (ORDER BY column)
+```
+Example using LAG to get previous month's revenue:
+```sql
+SELECT id, revenue, LAG(revenue, 1) OVER (ORDER BY month) as prev_month_revenue
+```
+FROM table1 ORDER BY id
+The first row will have NULL for the LAG value, and the last row will have NULL for the LEAD value
