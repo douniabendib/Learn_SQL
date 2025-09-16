@@ -42,3 +42,42 @@ Use ROW_NUMBER() OVER (ORDER BY column) to generate row numbers based on a speci
 ROW_NUMBER() OVER (ORDER BY year DESC) as row_num
 ```
 This creates a numbered column following the descending year order. You can use ASC for ascending or DESC for descending order, and can also order by calculated expressions.
+
+# PARTITION BY criterion
+
+
+Another option for the OVER () clause is PARTITION BY
+
+It allows us to number the rows for each group separately 
+
+For example:
+
+| id  | type |
+|-----|------|
+| 132 | t1   |
+| 52  | t2   |
+| 92  | t1   |
+| 154 | t3   |
+| 198 | t1   |
+```sql
+SELECT id, type, ROW_NUMBER() OVER (PARTITION BY type ORDER BY id) as row_num
+FROM table1
+```
+This will generate a column that will number each type within itself:
+
+| id  | type | row_num |
+|-----|------|---------|
+| 132 | t1   | 1       |
+| 52  | t2   | 1       |
+| 92  | t1   | 2       |
+| 154 | t3   | 1       |
+| 198 | t1   | 3       |
+
+id 92 has row_num 2 because it is the second row of type t1 when ordered by id.
+
+Note: ROW_NUMBER() requires an ORDER BY clause within the OVER() to determine how rows should be numbered within each partition.
+
+We can even specify multiple columns inside the PARTITION BY:
+```sql
+ROW_NUMBER() OVER (PARTITION BY type, hue ORDER BY id)
+```
