@@ -9,12 +9,12 @@ Compare current rows with previous/following rows
 Analyze trends over time periods
 For example here are some real world examples for window functions use-case:
 
-- Sales Analysis
-* Calculate cumulative sales up to each year (1995, 1997, 1999)
-* Find top-selling products for each quarter
-- Sports Statistics
-* Track Olympic medal counts across different years
-* Identify leading athletes in each competition period (2000, 2004, 2008)
+- Sales Analysis:
+1. Calculate cumulative sales up to each year (1995, 1997, 1999)
+2. Find top-selling products for each quarter
+- Sports Statistics:
+1. Track Olympic medal counts across different years
+2. Identify leading athletes in each competition period (2000, 2004, 2008)
 
 ROW_NUMBER() is one of the simplest window functions. It assigns a unique sequential number to each row in the result set. Here how to use it:
 ```sql
@@ -33,3 +33,12 @@ FROM sales;
 This adds a row_num column that counts from 1 to the total number of rows.
 
 Note: The OVER clause can contain ordering and partitioning instructions to control how the numbering works.
+
+# ORDER BY criterion
+
+
+Use ROW_NUMBER() OVER (ORDER BY column) to generate row numbers based on a specific ordering:
+```sql
+ROW_NUMBER() OVER (ORDER BY year DESC) as row_num
+```
+This creates a numbered column following the descending year order. You can use ASC for ascending or DESC for descending order, and can also order by calculated expressions.
