@@ -137,3 +137,51 @@ Would give us:
 | 8     | 61      | East   | 61          |
 Now the maximum is calculated separately for each region. The East region and West region maintain their own running maximums independently.
 
+# ROWS & RANGE Criterion
+
+As of now, we can't be flexible regarding choosing how many rows before or after to take into account. Now it is possible with ROWS & RANGE criteria. To use them we write:
+
+* OVER (ROWS BETWEEN --START-- AND --END--)
+
+* OVER (RANGE BETWEEN --START-- AND --END--)
+
+And we can specify the following options:
+
+* CURRENT ROW - the current row
+* n PRECEDING - rows before the current row
+* n FOLLOWING - rows after the current row 
+The difference between ROWS & RANGE is that ROWS criterion doesn't care about the values, just the positions, whereas RANGE defines the window in terms of value ranges rather than row positions.
+
+For RANGE we must specify ORDER BY --column_name-- because if not it would not know how to choose the window.
+
+For example:
+```sql
+ROWS BETWEEN 1 PRECEDING AND 1 FOLLOWING
+```
+Here it creates a window that includes the current row, the row before it, and the row after it.
+```sql
+RANGE BETWEEN 1 PRECEDING AND 1 FOLLOWING ORDER BY levels
+```
+Here it creates a window that includes for each level (sorted in ascending order) the current level, one level before it, and one level after it. If the current level is 5 then it will include levels 4, 5, and 6.
+
+Note: The use of RANGE BETWEEN might result in more rows being included in your window, because it includes all rows that share the same values as those in the range, while ROWS BETWEEN will always include the same number of rows (as long as they are available in the data set). 
+
+Also RANGE does not support date columns.
+
+Here's a simple example to illustrate ROWS vs RANGE:
+
+- Using ROWS:
+```sql
+SELECT employee_name, salary,
+    AVG(salary) OVER (
+        ROWS BETWEEN 1 PRECEDING AND 1 FOLLOWING
+    ) as avg_salary_rows
+```
+- Using RANGE:
+```sql
+SELECT employee_name, salary,
+    AVG(salary) OVER (
+        ORDER BY salary
+        RANGE BETWEEN 1000 PRECEDING AND 1000 FOLLOWING
+    ) as avg_salary_range
+```
