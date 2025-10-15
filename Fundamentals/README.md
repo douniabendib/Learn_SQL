@@ -76,3 +76,64 @@ When the number of rows isn't evenly divisible by n, NTILE distributes the rows 
 - Group 3: 2 rows
 - Group 4: 2 rows
 This ensures that no group differs by more than one row from any other group, and any extra rows are distributed to the lower-numbered groups first.
+
+# Aggregation Functions
+
+
+Aggregation functions are used to calculate the AVG() or MAX() or any other aggregation function up until the current row.
+For example, we could calculate the maximum revenue we got until each ending period:
+
+| month | revenue | region |
+|-------|---------|--------|
+| 4     | 40      | East   |
+| 5     | 20      | East   |
+| 6     | 60      | West   |
+| 7     | 55      | West   |
+| 8     | 61      | East   |
+
+```sql
+SELECT month, revenue, MAX(revenue) OVER (ORDER BY month ASC) as max_revenue
+from table1
+```
+This will return:
+
+| month | revenue | max_revenue |
+|-------|---------|-------------|
+| 4     | 40      | 40          |
+| 5     | 20      | 40          |
+| 6     | 60      | 60          |
+| 7     | 55      | 60          |
+| 8     | 61      | 61          |
+
+For months 4 and 5 the maximum revenue is 40, for months 5 and 6 the revenue is 60 and for months 8, it is 61. This is because when it finds a new bigger revenue, it drops the old one and uses the biggest so far.
+
+For AVG() function it will look like this:
+```sql
+SELECT month, revenue, AVG(revenue) OVER (ORDER BY month ASC) as avg_revenue
+from table1
+```
+| month | revenue | avg_revenue |
+|-------|---------|-------------|
+| 4     | 40      | 40          |
+| 5     | 20      | 30          |
+| 6     | 60      | 40          |
+| 7     | 55      | 43.75       |
+| 8     | 61      | 47.2        |
+
+We can also group our calculations by specific categories using PARTITION BY. For example:
+```sql
+SELECT month, revenue, region,
+MAX(revenue) OVER (PARTITION BY region ORDER BY month ASC) as max_revenue
+FROM table1
+```
+Would give us:
+
+| month | revenue | region | max_revenue |
+|-------|---------|--------|-------------|
+| 4     | 40      | East   | 40          |
+| 5     | 20      | East   | 40          |
+| 6     | 60      | West   | 60          |
+| 7     | 55      | West   | 60          |
+| 8     | 61      | East   | 61          |
+Now the maximum is calculated separately for each region. The East region and West region maintain their own running maximums independently.
+
